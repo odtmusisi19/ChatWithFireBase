@@ -85,14 +85,19 @@
       module.sendMsg = function sendMsg() {
         var textnama = name.value;
         var msg = msgTxt.value;
-        var timestamp = new Date().getTime();
-        set(ref(db, 'messages/' + timestamp), {
-          msg: msg,
-          sender: textnama,
-          time: timestamp,
-        });
+        if (textnama == '' || msg == '') {
+          alert('Nama atau Pesan tidak boleh kosong');
+        } else {
+          var timestamp = new Date().getTime();
+          set(ref(db, 'messages/' + timestamp), {
+            msg: msg,
+            sender: textnama,
+            time: timestamp,
+          });
 
-        msgTxt.value = '';
+          msgTxt.value = '';
+          name.value = '';
+        }
       };
 
       function getTimeAgo(timestamp) {
@@ -119,6 +124,10 @@
           return 'Beberapa detik yang lalu';
         }
       }
+      function isLink(data) {
+        var pattern = /^(http:\/\/|https:\/\/|www\.)/;
+        return pattern.test(data);
+      }
 
       // TO RECEIVE MSG
       onChildAdded(ref(db, 'messages'), (data) => {
@@ -138,9 +147,20 @@
               <small class="text-dark m-0 p-0" style="font-size: 0.75rem">${getTimeAgo(data.val().time)}</small>
             </div>
             <hr class="text-dark my-1" />
-            <p class="text-dark mt-0 mb-1 mx-0 p-0" style="white-space: pre-line">${data.val().msg}</p>
+            <p id="myLink" class="text-dark mt-0 mb-1 mx-0 p-0" style="white-space: pre-line" >${data.val().msg}</p>
           </div>`
           );
+
+          var data = document.getElementById('myLink').textContent;
+
+          if (isLink(data)) {
+            var linkElement = document.createElement('a');
+            linkElement.href = data;
+            linkElement.textContent = data;
+
+            document.getElementById('myLink').textContent = '';
+            document.getElementById('myLink').appendChild(linkElement);
+          }
         }
       });
 
