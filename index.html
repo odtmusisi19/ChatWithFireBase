@@ -54,15 +54,17 @@
       import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
       import { getDatabase, ref, set, remove, onChildAdded, onChildRemoved } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js';
 
-      const firebaseConfig = {
-        apiKey: 'AIzaSyCMxCTwd6OrqLDvepg8R0IPCv7GnX1mB08',
-        authDomain: 'mychat-b909e.firebaseapp.com',
-        projectId: 'mychat-b909e',
-        storageBucket: 'mychat-b909e.appspot.com',
-        messagingSenderId: '695430599607',
-        appId: '1:695430599607:web:9ef4c390b79e5097260e32',
-        measurementId: 'G-S1F1LK5W5B',
-      };
+    const firebaseConfig = {
+    apiKey: "AIzaSyCMxCTwd6OrqLDvepg8R0IPCv7GnX1mB08",
+    authDomain: "mychat-b909e.firebaseapp.com",
+    databaseURL: "https://mychat-b909e-default-rtdb.firebaseio.com",
+    projectId: "mychat-b909e",
+    storageBucket: "mychat-b909e.firebasestorage.app",
+    messagingSenderId: "695430599607",
+    appId: "1:695430599607:web:9ef4c390b79e5097260e32",
+    measurementId: "G-S1F1LK5W5B"
+  };
+
 
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
