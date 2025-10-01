@@ -79,7 +79,7 @@
       }
       var currentTime = new Date().getTime();
       var formattedTime = new Date(currentTime).toLocaleString();
-      console.log(db);
+      console.log("culek");
 
       // TO SEND MESSAGES
       module.sendMsg = function sendMsg() {
@@ -131,6 +131,7 @@
 
       // TO RECEIVE MSG
       onChildAdded(ref(db, 'messages'), (data) => {
+        console.log(data.val().sender);
         if (data.val().sender == sender) {
           messages.insertAdjacentHTML(
             'beforeend',
